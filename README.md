@@ -1,4 +1,4 @@
-# xkit-catalog.js
+# xkit-catalog-react.js
 See the full documentation at [https://docs.xkit.co/reference#xkit-catalogjs](https://docs.xkit.co/reference#xkit-catalogjs)
 
 ## About Xkit
