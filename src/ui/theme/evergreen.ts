@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { Provider } from 'react'
 import { StyleAttribute } from 'glamor'
 import {
   defaultTheme,
@@ -87,7 +87,7 @@ interface ThemerType {
 const Themer = UntypedThemer as ThemerType
 
 // ThemeProvider is not in the index.d.ts for evergreen
-const ThemeProvider = UntypedProvider
+const ThemeProvider: Provider<Theme> = UntypedProvider
 
 type ThemeHOC = <Props extends {}>(
   WrappedComponent: React.ComponentType<Props>
