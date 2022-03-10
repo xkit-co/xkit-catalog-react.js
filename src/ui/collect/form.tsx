@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { Button, TextInputField, majorScale } from '@treygriffith/evergreen-ui'
+import {
+  Button,
+  TextInputField,
+  SelectField,
+  majorScale
+} from '@treygriffith/evergreen-ui'
 import PrefixInputField from '../prefix-input-field'
 import { Authorization, CollectField } from '@xkit-co/xkit.js'
 import withXkit, { XkitConsumer } from '../with-xkit'
@@ -120,7 +125,7 @@ class Form extends React.Component<XkitConsumer<FormProps>, FormState> {
 
       const inputProps = {
         label: collectField.label,
-        value: values[name] || '',
+        value: values[name] ?? '',
         isInvalid: Boolean(validationMessage),
         validationMessage: validationMessage
           ? `${collectField.label} ${validationMessage}`
@@ -130,6 +135,20 @@ class Form extends React.Component<XkitConsumer<FormProps>, FormState> {
           this.setState({ values: { ...values, [name]: e.target.value } }),
         onKeyDown: async (e: React.KeyboardEvent<HTMLInputElement>) =>
           e.keyCode === 13 ? await this.handleSave(e) : null
+      }
+
+      // TODO: support a real select type, not just special for salesforce
+      if (name === 'salesforce_environment') {
+        if (!inputProps.value) {
+          this.setState({ values: { ...values, [name]: 'production' } })
+        }
+
+        return (
+          <SelectField key={collectField.name} {...inputProps}>
+            <option value='production'>Production</option>
+            <option value='sandbox'>Sandbox</option>
+          </SelectField>
+        )
       }
 
       if (collectField.suffix) {
