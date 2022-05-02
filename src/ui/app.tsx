@@ -21,16 +21,16 @@ export function isRouterType(type: string | undefined): type is routerType {
   return ['memory', 'hash', 'browser'].includes(type)
 }
 
-export function createHistory(type: routerType, basename: string): History {
+export function createHistory(type: routerType): History {
   if (type === 'memory') {
     return createMemoryHistory()
   }
 
   if (type === 'hash') {
-    return createHashHistory({ basename })
+    return createHashHistory()
   }
 
-  return createBrowserHistory({ basename })
+  return createBrowserHistory()
 }
 
 export type SettingsUpdate = (
@@ -95,7 +95,7 @@ class App extends React.Component<AppProps, AppState> {
     if (this.props.history) {
       return this.props.history
     }
-    return createHistory(this.props.routerType, this.props.rootPath)
+    return createHistory(this.props.routerType)
   }
 
   constructor(props: AppProps) {
@@ -122,6 +122,7 @@ class App extends React.Component<AppProps, AppState> {
       title,
       hideTitle,
       hideSearch,
+      rootPath,
       connectorsPath,
       filter,
       settings,
@@ -132,19 +133,28 @@ class App extends React.Component<AppProps, AppState> {
 
     return (
       <AppWrapper xkit={xkit} theme={theme}>
-        <Route path='/' strict>
-          <Pane margin='auto'>
-            <Home
-              title={title}
-              hideTitle={hideTitle}
-              hideSearch={hideSearch}
-              connectorsPath={connectorsPath === '/' ? '' : connectorsPath}
-              filter={filter}
-              updateSettings={settings}
-              onLocationChange={onLocationChange}
-            />
-          </Pane>
-        </Route>
+        <Route
+          path={rootPath}
+          strict
+          render={({ match }) => (
+            <Pane margin='auto'>
+              <Home
+                title={title}
+                hideTitle={hideTitle}
+                hideSearch={hideSearch}
+                rootPath={match.path}
+                connectorsPath={
+                  connectorsPath === '/'
+                    ? match.path
+                    : `${match.path}${connectorsPath}`
+                }
+                filter={filter}
+                updateSettings={settings}
+                onLocationChange={onLocationChange}
+              />
+            </Pane>
+          )}
+        />
       </AppWrapper>
     )
   }

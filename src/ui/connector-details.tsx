@@ -25,6 +25,7 @@ import PoweredBy from './powered-by'
 import { errorMessage } from '../util'
 
 interface ConnectorDetailsProps {
+  rootPath: string
   path: string
   url: string
   slug: string
@@ -36,6 +37,7 @@ interface ConnectorDetailsProps {
 type Settings = Record<string, SettingsField[]>
 
 const ConnectorDetails: React.FC<ConnectorDetailsProps> = ({
+  rootPath,
   path,
   url,
   slug,
@@ -262,7 +264,7 @@ const ConnectorDetails: React.FC<ConnectorDetailsProps> = ({
         display='flex'
         justifyContent='space-between'
       >
-        <BackButton is={Link} to='/'>
+        <BackButton is={Link} to={rootPath}>
           Back to Catalog
         </BackButton>
         <PoweredBy

@@ -14,6 +14,7 @@ interface HomeProps {
   hideTitle?: boolean
   hideSearch?: boolean
   connectorsPath: string
+  rootPath: string
   filter: CatalogFilter
   updateSettings: SettingsUpdate
   onLocationChange: LocationListener
@@ -90,6 +91,7 @@ class Home extends React.Component<XkitConsumer<HomeProps>, HomeState> {
     const {
       hideTitle,
       hideSearch,
+      rootPath,
       connectorsPath,
       filter,
       updateSettings,
@@ -111,7 +113,7 @@ class Home extends React.Component<XkitConsumer<HomeProps>, HomeState> {
           </Heading>
         )}
         <Switch>
-          <Route path={['/', connectorsPath]} exact>
+          <Route path={[rootPath, connectorsPath]} exact>
             <Catalog
               platform={platform}
               showBackButton={!hideTitle}
@@ -127,6 +129,7 @@ class Home extends React.Component<XkitConsumer<HomeProps>, HomeState> {
               return (
                 <ConnectorDetails
                   removeBranding={platform?.remove_branding}
+                  rootPath={rootPath}
                   path={match.path}
                   url={match.url}
                   slug={match.params.slug}

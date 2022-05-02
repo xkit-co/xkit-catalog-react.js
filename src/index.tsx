@@ -26,8 +26,7 @@ function renderCatalog(
   opts: CatalogOptions = {}
 ): Catalog {
   const history = createHistory(
-    isRouterType(opts.routerType) ? opts.routerType : undefined,
-    opts.rootPath
+    isRouterType(opts.routerType) ? opts.routerType : undefined
   )
 
   const { routerType, ...appOpts } = opts
