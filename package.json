@@ -60,7 +60,7 @@
   "dependencies": {
     "@treygriffith/evergreen-ui": "^6.1.1",
     "@treygriffith/ui-box": "^5.0.0",
-    "@xkit-co/xkit.js": "3.12.1",
+    "@xkit-co/xkit.js": "3.12.2",
     "glamor": "^2.20.40",
     "history": "^4.10.1",
     "react-router-dom": "^5.2.0",
